@@ -16,6 +16,8 @@ namespace CakeShop
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            // (1) added AddControllersWithViews
+            services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -26,14 +28,22 @@ namespace CakeShop
                 app.UseDeveloperExceptionPage();
             }
 
+            // (1) added for making Http request to Https 
+            app.UseHttpsRedirection();
+
+            // (2) added to serve static files e.g. images, JavaScript files, CSS etc.
+            //it searches wwwroot for static files
+            app.UseStaticFiles();
+
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
+                // (3) added default routing
+
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }
