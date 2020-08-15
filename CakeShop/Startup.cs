@@ -6,6 +6,8 @@ using CakeShop.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -13,10 +15,29 @@ namespace CakeShop
 {
     public class Startup
     {
+        // (A) 
+        // With the -> IConfiguration <- we have access to the properties which are set in  appsettings.json
+        // Currently I will need it to have access to the connection string in appsettings.json
+        public IConfiguration Configuration { get; }
+
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
+
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            // (B)
+            // Get the connection string. after having added above 
+            //|ConfigureServices| the -->  public IConfiguration Configuration { get; }
+
+            services.AddDbContext<ApplicationDBContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+
             // added scopes (Dependency Injection)
             services.AddScoped<IPieRepository, MockPieRepository>();
             services.AddScoped<ICategoryRepository, MockCategoryRepository>();
