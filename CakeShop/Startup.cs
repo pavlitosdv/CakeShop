@@ -42,6 +42,17 @@ namespace CakeShop
             services.AddScoped<IPieRepository, PieRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
 
+            // enabling and configuring the Session \\
+            services.AddScoped<ShoppingCart>(sp => ShoppingCart.GetCart(sp)); //invoke for the user 
+                                                                              //the GetCart method on the ShoppingCart Class
+                                                            //sp -> is the IService Provider
+                                                            //with AddScoped: if a shopping Cart exists it will be associated to the user
+                                                            //elsewere a new Shopping cart will be created and be associated to the user
+            services.AddHttpContextAccessor();
+            services.AddSession();
+                            //----\\
+
+
             // (1) added AddControllersWithViews
             services.AddControllersWithViews();
         }
@@ -62,6 +73,9 @@ namespace CakeShop
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            // session middleware
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {
