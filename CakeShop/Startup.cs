@@ -39,8 +39,8 @@ namespace CakeShop
 
 
             // added scopes (Dependency Injection)
-            services.AddScoped<IPieRepository, MockPieRepository>();
-            services.AddScoped<ICategoryRepository, MockCategoryRepository>();
+            services.AddScoped<IPieRepository, PieRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
 
             // (1) added AddControllersWithViews
             services.AddControllersWithViews();
