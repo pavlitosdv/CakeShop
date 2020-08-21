@@ -27,6 +27,7 @@
                     @await Component.InvokeAsync("CategoryMenu") @*this, also includes HTML structure to illustrate a drop down list*@
                     @*<li><a asp-controller="Contact" asp-action="Index">Contact</a></li>*@
                     @await Component.InvokeAsync("ShoppingCartSummary")
+                    <partial name="_LoginPartial" />
                 </ul>
             </div>
         </div>
@@ -43,6 +44,7 @@
                 @RenderBody()
             </div>
         </div>
+        @RenderSection("Scripts", required: false)    @*needs to be added, else it will throw an excemption*@ 
     </div>
 </body>
 </html>
