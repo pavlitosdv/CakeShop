@@ -85,6 +85,7 @@ namespace CakeShop
 
             app.UseRouting();
             app.UseAuthentication();
+            app.UseAuthorization();
 
            
 
