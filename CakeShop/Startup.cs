@@ -73,10 +73,13 @@ namespace CakeShop
             //it searches wwwroot for static files
             app.UseStaticFiles();
 
-            app.UseRouting();
-
             // session middleware
             app.UseSession();
+
+            app.UseRouting();
+            app.UseAuthentication();
+
+           
 
             app.UseEndpoints(endpoints =>
             {
