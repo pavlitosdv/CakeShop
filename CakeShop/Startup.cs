@@ -41,6 +41,7 @@ namespace CakeShop
             // added scopes (Dependency Injection)
             services.AddScoped<IPieRepository, PieRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
 
             // enabling and configuring the Session \\
             services.AddScoped<ShoppingCart>(sp => ShoppingCart.GetCart(sp)); //invoke for the user 
